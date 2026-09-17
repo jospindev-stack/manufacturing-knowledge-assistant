@@ -1,17 +1,32 @@
 [
   {
-    "question": "What should be inspected before restarting the machine?",
-    "expected_source": "maintenance_manual.pdf",
-    "expected_page": 14
+    "question": "What must be checked before restarting the MX-200 after maintenance?",
+    "expected_source": "maintenance_manual.md",
+    "expected_page": 1
   },
   {
-    "question": "What PPE is required for this maintenance procedure?",
-    "expected_source": "safety_procedure.pdf",
-    "expected_page": 3
+    "question": "What PPE is required for routine mechanical maintenance?",
+    "expected_source": "safety_procedure.md",
+    "expected_page": 1
   },
   {
-    "question": "How often should the lubrication point be serviced?",
-    "expected_source": "maintenance_manual.pdf",
-    "expected_page": 22
+    "question": "How often must the main conveyor bearing lubrication points be serviced?",
+    "expected_source": "maintenance_manual.md",
+    "expected_page": 1
+  },
+  {
+    "question": "What should happen to a part that does not meet a specified requirement?",
+    "expected_source": "quality_procedure.md",
+    "expected_page": 1
+  },
+  {
+    "question": "What information must production records retain for traceability?",
+    "expected_source": "quality_procedure.md",
+    "expected_page": 1
+  },
+  {
+    "question": "What must be verified before beginning work on isolated equipment?",
+    "expected_source": "safety_procedure.md",
+    "expected_page": 1
   }
 ]
