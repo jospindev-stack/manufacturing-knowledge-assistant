@@ -1,0 +1,17 @@
+[
+  {
+    "question": "What should be inspected before restarting the machine?",
+    "expected_source": "maintenance_manual.pdf",
+    "expected_page": 14
+  },
+  {
+    "question": "What PPE is required for this maintenance procedure?",
+    "expected_source": "safety_procedure.pdf",
+    "expected_page": 3
+  },
+  {
+    "question": "How often should the lubrication point be serviced?",
+    "expected_source": "maintenance_manual.pdf",
+    "expected_page": 22
+  }
+]
