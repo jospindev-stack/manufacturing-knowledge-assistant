@@ -1,0 +1,50 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_MODEL: llama3.2:3b
+    ports:
+      - "8000:8000"
+    volumes:
+      - document_data:/app/data/documents
+      - chroma_data:/app/data/chroma
+    depends_on:
+      ollama:
+        condition: service_started
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: http://localhost:8000
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
+  ollama-init:
+    image: ollama/ollama:latest
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["sleep 5 && ollama pull llama3.2:3b"]
+    depends_on:
+      - ollama
+    restart: "no"
+
+volumes:
+  document_data:
+  chroma_data:
+  ollama_data:
