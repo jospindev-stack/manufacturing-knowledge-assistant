@@ -1,5 +1,4 @@
 from pathlib import Path
-from uuid import uuid4
 
 import chromadb
 
@@ -32,7 +31,17 @@ class VectorStore:
         if not chunks:
             return 0
 
-        ids = [f"{document_id}:{chunk.chunk_index}:{uuid4().hex[:8]}" for chunk in chunks]
+        sources = {chunk.source for chunk in chunks}
+        if len(sources) != 1:
+            raise ValueError("all chunks in one indexing operation must share the same source")
+
+        source = next(iter(sources))
+
+        # Re-uploading the same logical document should replace its previous
+        # vectors rather than accumulate duplicates that distort Top-K ranking.
+        self._collection.delete(where={"source": source})
+
+        ids = [f"{document_id}:{chunk.chunk_index}" for chunk in chunks]
         metadatas = [
             {
                 "document_id": document_id,
