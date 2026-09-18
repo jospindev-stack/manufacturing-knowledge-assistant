@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from app.services.generation import OllamaGenerationService
+from app.services.generation import NOT_FOUND_SIGNAL, OllamaGenerationService
 from app.services.retrieval import RetrievalResult, RetrievalService
 
 
@@ -44,8 +44,11 @@ class RagService:
 
         context = self._build_context(relevant)
         answer = self.generation_service.generate(question=question, context=context)
-        sources = self._citations(relevant)
 
+        if answer.strip() == NOT_FOUND_SIGNAL:
+            return RagAnswer(answer=NOT_FOUND_ANSWER, sources=[], grounded=False)
+
+        sources = self._citations(relevant)
         return RagAnswer(answer=answer, sources=sources, grounded=True)
 
     @staticmethod

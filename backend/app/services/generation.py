@@ -2,11 +2,13 @@ import json
 from urllib import error, request
 
 
-SYSTEM_INSTRUCTIONS = """You are a manufacturing documentation assistant.
+NOT_FOUND_SIGNAL = "__NOT_FOUND__"
+
+SYSTEM_INSTRUCTIONS = f"""You are a manufacturing documentation assistant.
 Answer the user's question using ONLY the supplied context.
 Do not use outside knowledge and do not invent procedures, values, warnings, or facts.
-If the context does not contain enough information, say that the information was not found in the available documents.
-Keep the answer concise and operational. Source citations are handled separately by the application.
+If the supplied context does not contain the answer, return exactly {NOT_FOUND_SIGNAL} and nothing else.
+Keep supported answers concise and operational. Source citations are handled separately by the application.
 """
 
 
