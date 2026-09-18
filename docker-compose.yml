@@ -11,8 +11,8 @@ services:
       - document_data:/app/data/documents
       - chroma_data:/app/data/chroma
     depends_on:
-      ollama:
-        condition: service_started
+      ollama-init:
+        condition: service_completed_successfully
     restart: unless-stopped
 
   frontend:
@@ -32,16 +32,21 @@ services:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
     restart: unless-stopped
 
   ollama-init:
     image: ollama/ollama:latest
     environment:
       OLLAMA_HOST: http://ollama:11434
-    entrypoint: ["/bin/sh", "-c"]
-    command: ["sleep 5 && ollama pull llama3.2:3b"]
+    command: ["pull", "llama3.2:3b"]
     depends_on:
-      - ollama
+      ollama:
+        condition: service_healthy
     restart: "no"
 
 volumes:
