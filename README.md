@@ -5,7 +5,7 @@
 
 A **local-first Retrieval-Augmented Generation (RAG) assistant** for manufacturing documentation. Upload technical documents, index them as semantic vectors, retrieve the most relevant evidence, and generate grounded answers with explicit source citations using a local LLM.
 
-The project deliberately keeps the RAG pipeline explicit instead of hiding retrieval behind a large framework. It is designed as a practical demonstration of document ingestion, embeddings, vector search, grounded generation, evaluation, API design, testing, and containerization.
+The project deliberately keeps the RAG pipeline explicit instead of hiding retrieval behind a large framework. It is designed as a practical demonstration of document ingestion, embeddings, vector search, grounded generation, evaluation, API design, testing, and containerization.\n\n### Initial synthetic benchmark\n\nOn the first clean run of the included 6-question synthetic evaluation set at **Top-K = 5**, retrieval achieved **100% Hit Rate@5 (6/6)** and **0.917 MRR**. Five questions retrieved the expected evidence at rank 1 and one at rank 2. These figures describe that recorded demonstration run, not a production-quality benchmark.
 
 ## What it demonstrates
 
@@ -212,7 +212,7 @@ The project evaluates retrieval separately from generation. Given a question and
 MRR = mean(1 / rank_of_first_relevant_result)
 ```
 
-No benchmark score is hardcoded in this repository. Scores should only be reported after the documents have actually been indexed and the evaluation has been executed against the configured embedding model and vector store.
+The recorded initial demonstration run, using the included 6-question synthetic dataset with **Top-K = 5**, produced **100% Hit Rate@5 (6/6)** and **0.917 MRR**: five expected sources appeared at rank 1 and one at rank 2.\n\nThe corpus is intentionally small and synthetic, so these metrics demonstrate that the evaluation pipeline works; they should not be interpreted as a production benchmark or as evidence of general-domain retrieval quality. Re-indexing a source is idempotent, preventing repeated uploads from accumulating duplicate vectors and contaminating later rank-based evaluations.
 
 ## Synthetic demonstration data
 
