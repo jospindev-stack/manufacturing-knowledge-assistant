@@ -10,6 +10,11 @@ class Settings(BaseSettings):
     ollama_model: str = "llama3.2:3b"
     retrieval_top_k: int = 5
     retrieval_min_similarity: float = 0.35
+    cors_origins: str = "http://localhost:5173"
+
+    @property
+    def cors_origin_list(self) -> list[str]:
+        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
 
     model_config = SettingsConfigDict(
         env_file=".env",

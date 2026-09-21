@@ -152,7 +152,7 @@ Ollama must be available locally at `http://localhost:11434` unless `OLLAMA_BASE
 
 ```bash
 cd frontend
-npm install
+npm ci
 npm run dev
 ```
 
@@ -213,7 +213,7 @@ The generation layer also has an explicit insufficient-evidence path. When the r
   <img src="docs/assets/insufficient-evidence.png" alt="RAG insufficient-evidence guardrail" width="100%">
 </p>
 
-## Retrieval evaluation
+### Retrieval evaluation endpoint
 
 ```http
 POST /api/evaluation/retrieval
@@ -255,6 +255,7 @@ OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=llama3.2:3b
 RETRIEVAL_TOP_K=5
 RETRIEVAL_MIN_SIMILARITY=0.35
+CORS_ORIGINS=http://localhost:5173
 ```
 
 Inside Docker Compose, the backend communicates with Ollama through the internal service address `http://ollama:11434`.
@@ -278,7 +279,7 @@ Build the frontend locally:
 
 ```bash
 cd frontend
-npm install
+npm ci
 npm run build
 ```
 
@@ -326,4 +327,4 @@ Potential future improvements include calibrated retrieval thresholds, reranking
 
 ## License
 
-This repository is a portfolio and educational project. A formal open-source license has not yet been added.
+This is a personal portfolio project. All source code and synthetic demonstration data were created specifically for this project. A formal open-source license has not yet been added.

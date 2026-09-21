@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query, status
 
-from app.services.embeddings import get_embedding_service
+from app.core.config import get_settings\nfrom app.services.embeddings import get_embedding_service
 from app.services.retrieval import RetrievalService
 from app.services.vector_store import VectorStore
 
@@ -10,7 +10,7 @@ router = APIRouter(prefix="/api/search", tags=["retrieval"])
 @router.get("")
 def semantic_search(
     q: str = Query(min_length=1, description="Natural-language search query"),
-    top_k: int = Query(default=5, ge=1, le=20),
+    top_k: int | None = Query(default=None, ge=1, le=20),
 ) -> dict:
     """Return the most semantically similar chunks without invoking an LLM."""
     try:
@@ -24,7 +24,7 @@ def semantic_search(
 
     return {
         "query": q,
-        "top_k": top_k,
+        "top_k": resolved_top_k,
         "results": [
             {
                 "text": result.text,

@@ -5,16 +5,19 @@ from app.api.chat import router as chat_router
 from app.api.documents import router as documents_router
 from app.api.evaluation import router as evaluation_router
 from app.api.search import router as search_router
+from app.core.config import get_settings
+
+settings = get_settings()
 
 app = FastAPI(
     title="Manufacturing Knowledge Assistant",
     description="Local-first RAG API for manufacturing documentation.",
-    version="0.5.0",
+    version="1.0.0",
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=settings.cors_origin_list,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

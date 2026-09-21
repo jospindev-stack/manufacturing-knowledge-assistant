@@ -27,7 +27,7 @@ def chat(payload: ChatRequest) -> ChatResponse:
     )
 
     try:
-        result = rag.answer(payload.question, top_k=payload.top_k)
+        result = rag.answer(\n            payload.question,\n            top_k=payload.top_k or settings.retrieval_top_k,\n        )
     except ValueError as exc:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,

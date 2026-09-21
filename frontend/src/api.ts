@@ -30,7 +30,7 @@ export type EvaluationResponse = {
   hits: number
   hit_rate: number
   mean_reciprocal_rank: number
-  cases: Array<EvaluationCase & { hit: boolean; rank: number | null; best_similarity: number | null }>
+  cases: Array<EvaluationCase & { hit: boolean; rank: number | null; top_similarity: number | null }>
 }
 
 async function parse<T>(response: Response): Promise<T> {
