@@ -18,7 +18,7 @@ class EvaluationCaseResponse(BaseModel):
     expected_page: int | None
     hit: bool
     rank: int | None
-    best_similarity: float | None
+    top_similarity: float | None
 
 
 class EvaluationResponse(BaseModel):
