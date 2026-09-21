@@ -17,7 +17,7 @@ class EvaluationCaseResult:
     expected_page: int | None
     hit: bool
     rank: int | None
-    best_similarity: float | None
+    top_similarity: float | None
 
 
 @dataclass(frozen=True)
@@ -60,7 +60,7 @@ class RetrievalEvaluationService:
                     expected_page=case.expected_page,
                     hit=rank is not None,
                     rank=rank,
-                    best_similarity=(retrieved[0].similarity if retrieved else None),
+                    top_similarity=(retrieved[0].similarity if retrieved else None),
                 )
             )
 
