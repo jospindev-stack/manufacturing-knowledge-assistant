@@ -5,7 +5,15 @@
 
 A **local-first Retrieval-Augmented Generation (RAG) assistant** for manufacturing documentation. Upload technical documents, index them as semantic vectors, retrieve the most relevant evidence, and generate grounded answers with explicit source citations using a local LLM.
 
-The project deliberately keeps the RAG pipeline explicit instead of hiding retrieval behind a large framework. It is designed as a practical demonstration of document ingestion, embeddings, vector search, grounded generation, evaluation, API design, testing, and containerization.\n\n### Initial synthetic benchmark\n\nOn the first clean run of the included 6-question synthetic evaluation set at **Top-K = 5**, retrieval achieved **100% Hit Rate@5 (6/6)** and **0.917 MRR**. Five questions retrieved the expected evidence at rank 1 and one at rank 2. These figures describe that recorded demonstration run, not a production-quality benchmark.
+The project deliberately keeps the RAG pipeline explicit instead of hiding retrieval behind a large framework. It is designed as a practical demonstration of document ingestion, embeddings, vector search, grounded generation, evaluation, API design, testing, and containerization.
+
+<p align="center">
+  <img src="docs/assets/overview.png" alt="Manufacturing Knowledge Assistant local RAG playground" width="100%">
+</p>
+
+<p align="center">
+  <a href="docs/assets/demo-rag.mp4"><strong>▶ Watch the end-to-end demo</strong></a>
+</p>\n\n### Initial synthetic benchmark\n\nOn the first clean run of the included 6-question synthetic evaluation set at **Top-K = 5**, retrieval achieved **100% Hit Rate@5 (6/6)** and **0.917 MRR**. Five questions retrieved the expected evidence at rank 1 and one at rank 2. These figures describe that recorded demonstration run, not a production-quality benchmark.
 
 ## What it demonstrates
 
@@ -191,7 +199,21 @@ Content-Type: application/json
 
 The service retrieves evidence first. If no retrieved chunk reaches the configured relevance threshold, the LLM is not asked to invent an answer and the response is marked as not grounded.
 
-### Retrieval evaluation
+### RAG behavior in practice
+
+The playground exposes both the generated answer and the evidence used to produce it. In the grounded example below, the assistant retrieves the maintenance manual and answers from the cited chunks.
+
+<p align="center">
+  <img src="docs/assets/grounder-answer.png" alt="Grounded RAG answer with retrieved source citations" width="100%">
+</p>
+
+The generation layer also has an explicit insufficient-evidence path. When the retrieved context does not contain the requested fact, the assistant returns the standard not-found response instead of presenting an unsupported answer as grounded.
+
+<p align="center">
+  <img src="docs/assets/insufficient-evidence.png" alt="RAG insufficient-evidence guardrail" width="100%">
+</p>
+
+## Retrieval evaluation
 
 ```http
 POST /api/evaluation/retrieval
